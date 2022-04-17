@@ -1,0 +1,29 @@
+;1810VM86M additional commands macro-definitions
+;RCgoff (L.Yadrennikov) 18.04.2022
+
+;SeT M-flag (int 07h on every ESC command OFF)
+;bit 13 on flag register:=0
+STM macro
+	db 0F1h
+	CLD
+	endm
+
+
+;CLear M-flag (int 07h on every ESC command ON)
+;bit 13 on flag register:=1
+CLM macro
+	db 0F1h
+	STD
+	endm
+
+;switch to SHadow Stack Segment and pointer
+SHSS macro
+	db 0F1h
+	STI
+	endm
+
+;switch to REgular Stack Segment and pointer
+RESS macro
+	db 0f1h
+	CLI
+	endm
