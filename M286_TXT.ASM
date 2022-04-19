@@ -276,45 +276,32 @@ shft8:	SAHF                        ;записать старые флаги (м
 ;8-битный операнд
 ROL8:	ROL     DL,CL               ;000
 	JMP     set_flag
-	NOP
 ROR8:	ROR     DL,CL               ;001
 	JMP     set_flag
-	NOP
 RCL8:	RCL     DL,CL               ;010
 	JMP     set_flag
-	NOP
 RCR8:	RCR     DL,CL               ;011
 	JMP     set_flag
-	NOP
 SHL8:	SHL     DL,CL               ;100 и 110
 	JMP     set_flag
-	NOP
 SHR8:	SHR     DL,CL               ;101
 	JMP     set_flag
-	NOP
 SAR8:	SAR     DL,CL               ;111
 	JMP     set_flag
-	NOP
 
 ;16-битный операнд
 ROL16:	ROL     DX,CL               ;000
 	JMP     set_flag
-	NOP
 ROR16:	ROR     DX,CL               ;001
 	JMP     set_flag
-	NOP
 RCL16:	RCL     DX,CL               ;010
 	JMP     set_flag
-	NOP
 RCR16:	RCR     DX,CL               ;011
 	JMP     set_flag
-	NOP
 SHL16:	SHL     DX,CL               ;100 и 110
 	JMP     set_flag
-	NOP
 SHR16:	SHR     DX,CL               ;101
 	JMP     set_flag
-	NOP
 SAR16:	SAR     DX,CL               ;111
 	
 ;запись в сохраненный в теневом стеке регистр флагов, запись результата и выход
@@ -493,19 +480,16 @@ inmem:  OR      reg_or_mem,02
 RM0:	ADD     SI,[BP+000Ah]       ;точка входа rm=0: BX+SI+смещ (0A - адрес BX в стеке)
 RM4:	ADD     SI,[BP+0004]        ;точка входа rm=4: SI+смещ (04 - адрес SI в стеке)
 	JMP     check_offset
-	NOP
 RM3:	OR      reg_or_mem,01       ;точка входа rm=3: BP+DI+смещ
 	NOP
 	ADD     SI,[BP+0006]        ;06 - адрес BP в стеке
 RM5:	ADD     SI,[BP+0002]        ;точка входа rm=5: DI+смещ (02 - адрес DI в стеке)
 	JMP     check_offset
-	NOP
 RM2:	ADD     SI,[BP+0004]        ;точка входа rm=2: BP+SI+смещ (04 - адрес SI в стеке)
 RM6:	ADD     SI,[BP+0006]        ;точка входа rm=6: BP+смещ (06 - адрес BP в стеке)
 	OR      reg_or_mem,01
 	NOP
 	JMP     check_offset
-	NOP     	
 RM1:	ADD     SI,[BP+0002]        ;точка входа rm=1: BX+DI+смещ (02 - адрес DI в стеке)
 RM7:	ADD     SI,[BP+000Ah]       ;точка входа rm=7: BX+смещ (0A - адрес BX в стеке)
 
@@ -523,7 +507,6 @@ check_offset:
 	MOV     AX,DX               ;восстановили КОП и mod-reg-rm
 	MOV     BYTE PTR cmd_len,02
 	JMP     check_pref          ;перейти к выбору сегмента
-	NOP
 
 ;прямая адресация со смещением =0
 ;два байта смещения или непосредственная словная адресация
@@ -532,7 +515,6 @@ word_offset:
 	MOV     DX,ES:[BX+01]       ;прочитать слово, следующее сразу за mod-reg-rm
 	ADD     SI,DX               ;прибавили его к SI (как смещение или как значение)
 	JMP     check_pref          ;перейти к выбору сегмента
-	NOP
 
 ;сюда попадем, если нет смещения
 no_offset:
@@ -808,7 +790,6 @@ SHIFTABLE8 label word
 	DB      00h
 
 _TEXT ends
-
 
 STACK segment para
 ;этого в памяти эмулятора уже не будет, это пойдет в E800:0
